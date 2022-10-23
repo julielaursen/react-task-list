@@ -44,13 +44,10 @@ const App = () => {
     )
   }
 
-  // app.js is where we get access to state
-  // state gets passed down, actions get passed up
   return (
     <div className="container">
       <Header onAdd={() => setShowAddTask(!showAddTask)} showAddTask={showAddTask} />
       {showAddTask && <AddTask onAdd={addTask} />}
-      <AddTask onAdd={addTask} />
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (

@@ -4,7 +4,6 @@ import AddTask from './components/AddTask'
 import { useState } from 'react'
 
 const App = () => {
-
   const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([
     {
@@ -49,7 +48,7 @@ const App = () => {
   // state gets passed down, actions get passed up
   return (
     <div className="container">
-      <Header onAdd={() => setShowAddTask(!showAddTask)} />
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAddTask={showAddTask} />
       {showAddTask && <AddTask onAdd={addTask} />}
       <AddTask onAdd={addTask} />
       {tasks.length > 0 ? (

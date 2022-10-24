@@ -1,6 +1,8 @@
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import About from './components/About'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -33,9 +35,8 @@ const App = () => {
   }
 
   const addTask = async (task) => {
-    const res = await fetch('http://localhost:5000/tasks', 
-    {
-      method: 'POST', 
+    const res = await fetch('http://localhost:5000/tasks', {
+      method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
@@ -43,18 +44,18 @@ const App = () => {
     })
 
     const data = await res.json()
-    console.log(res.status);
+    console.log(res.status)
     setTasks([...tasks, data])
   }
 
   const deleteTask = async (id) => {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`,
-     { method: 'DELETE',
-     })
- 
-    res.status === 200 ?
-    setTasks(tasks.filter((task) => task.id !== id))
-    : alert('Error Deleting This Task')
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE',
+    })
+
+    res.status === 200
+      ? setTasks(tasks.filter((task) => task.id !== id))
+      : alert('Error Deleting This Task')
   }
 
   const toggleReminder = async (id) => {
@@ -73,24 +74,43 @@ const App = () => {
 
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, reminder: data.reminder } : task
-      )
+        task.id === id ? { ...task, reminder: data.reminder } : task,
+      ),
     )
   }
 
   return (
-    <div className="container">
-      <Header
-        onAdd={() => setShowAddTask(!showAddTask)}
-        showAdd={showAddTask}
-      />
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {tasks.length > 0 ? (
-        <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
-      ) : (
-        'There are no tasks'
-      )}
-    </div>
+    <Router>
+      <div>
+        <div className="container">
+          <Header
+            onAdd={() => setShowAddTask(!showAddTask)}
+            showAdd={showAddTask}
+          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  {showAddTask && <AddTask onAdd={addTask} />}
+                  {tasks.length > 0 ? (
+                    <Tasks
+                      tasks={tasks}
+                      onDelete={deleteTask}
+                      onToggle={toggleReminder}
+                    />
+                  ) : (
+                    'No Tasks To Show'
+                  )}
+                </>
+              }
+            />
+            <Route path="/about" element={<About />} />
+          </Routes>
+          <Footer />
+        </div>
+      </div>
+    </Router>
   )
 }
 

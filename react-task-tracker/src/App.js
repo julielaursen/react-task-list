@@ -3,6 +3,7 @@ import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
 import About from './components/About'
+import { useLocation } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
@@ -79,6 +80,7 @@ const App = () => {
     )
   }
 
+  // To-Do: remove about link from about page
   return (
     <Router>
       <div>

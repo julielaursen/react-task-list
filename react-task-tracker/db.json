@@ -1,8 +1,8 @@
 {
   "tasks": [
     {
-      "text": "testadd",
-      "day": "friday ",
+      "text": "order groceries",
+      "day": "friday 2pm",
       "reminder": false,
       "id": 2
     },
@@ -11,6 +11,12 @@
       "day": "Monday 9am",
       "reminder": false,
       "id": 3
+    },
+    {
+      "text": "call mom",
+      "day": "sunday 9pm",
+      "reminder": false,
+      "id": 4
     }
   ]
 }
